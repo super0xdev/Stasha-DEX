@@ -1,0 +1,23 @@
+.footer {
+    position: relative;
+    background-color: rgb(39, 38, 44);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+}
+
+.footer-right {
+    position: absolute;
+    right: 5%;
+}
+
+.icons {
+    font-size: 20px;
+    line-height: 28px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

@@ -1,0 +1,10 @@
+.pool {
+    background-color: black !important;
+}
+
+#root {
+    background: black;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
