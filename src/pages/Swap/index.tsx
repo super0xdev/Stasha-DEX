@@ -122,7 +122,7 @@ const Swap = () => {
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
   const { v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError } = useDerivedSwapInfo()
-  console.log(currencies);
+
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
     currencies[Field.OUTPUT],
@@ -287,6 +287,8 @@ const Swap = () => {
       onCurrencySelection(Field.INPUT, inputCurrency)
       let res = inputCurrency.symbol.toLowerCase();
       res = res === 'btcb' ? 'btc' : res;
+      res = (res === 'tta' || res === 'ttb') ? 'bnb' : res;
+      console.log('---------res', res);
       setPriceA(priceData.find((coin) => coin.symbol === res).current_price);
       if (inputCurrency.symbol.toLowerCase() === 'syrup') {
         checkForSyrup(inputCurrency.symbol.toLowerCase(), 'Selling')
@@ -306,6 +308,8 @@ const Swap = () => {
       onCurrencySelection(Field.OUTPUT, outputCurrency)
       let res = outputCurrency.symbol.toLowerCase();
       res = res === 'btcb' ? 'btc' : res;
+      res = (res === 'tta' || res === 'ttb') ? 'usdt' : res;
+      console.log('---------res', res);
       setPriceB(priceData.find((coin) => coin.symbol === res).current_price);
       if (priceA === -1) setPriceA(priceData.find((coin) => coin.symbol === 'bnb').current_price);
       if (outputCurrency.symbol.toLowerCase() === 'syrup') {

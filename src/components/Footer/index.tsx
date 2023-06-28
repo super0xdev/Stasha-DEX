@@ -13,7 +13,7 @@ position:relative;
 color: white;
 gap: 80px;
 width: 100%;
-z-index: 10;
+z-index: 5;
 align-items:start;
 @media (max-width: 1024px) {
     flex-direction: column;

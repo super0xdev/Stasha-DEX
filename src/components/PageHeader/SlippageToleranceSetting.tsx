@@ -48,8 +48,8 @@ const predefinedValues = [
 ]
 
 const SlippageToleranceSettings = () => {
-  const [userSlippageTolerance, setUserslippageTolerance] = useUserSlippageTolerance()
-  const [value, setValue] = useState(userSlippageTolerance / 100)
+  //  const [userSlippageTolerance, setUserslippageTolerance] = useUserSlippageTolerance()
+  const [value, setValue] = useState(5)
   const [error, setError] = useState<string | null>(null)
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,28 +58,28 @@ const SlippageToleranceSettings = () => {
   }
 
   // Updates local storage if value is valid
-  useEffect(() => {
-    try {
-      const rawValue = value * 100
-      if (!Number.isNaN(rawValue) && rawValue > 0 && rawValue < MAX_SLIPPAGE) {
-        setUserslippageTolerance(rawValue)
-        setError(null)
-      } else {
-        setError('Enter a valid slippage percentage')
-      }
-    } catch {
-      setError('Enter a valid slippage percentage')
-    }
-  }, [value, setError, setUserslippageTolerance])
+  // useEffect(() => {
+  //   try {
+  //     const rawValue = value * 100
+  //     if (!Number.isNaN(rawValue) && rawValue > 0 && rawValue < MAX_SLIPPAGE) {
+  //       setUserslippageTolerance(rawValue)
+  //       setError(null)
+  //     } else {
+  //       setError('Enter a valid slippage percentage')
+  //     }
+  //   } catch {
+  //     setError('Enter a valid slippage percentage')
+  //   }
+  // }, [value, setError, setUserslippageTolerance])
 
   // Notify user if slippage is risky
-  useEffect(() => {
-    if (userSlippageTolerance < RISKY_SLIPPAGE_LOW) {
-      setError('Your transaction may fail')
-    } else if (userSlippageTolerance > RISKY_SLIPPAGE_HIGH) {
-      setError('Your transaction may be frontrun')
-    }
-  }, [userSlippageTolerance, setError])
+  // useEffect(() => {
+  //   if (userSlippageTolerance < RISKY_SLIPPAGE_LOW) {
+  //     setError('Your transaction may fail')
+  //   } else if (userSlippageTolerance > RISKY_SLIPPAGE_HIGH) {
+  //     setError('Your transaction may be frontrun')
+  //   }
+  // }, [userSlippageTolerance, setError])
 
   return (
     <StyledSlippageToleranceSettings>

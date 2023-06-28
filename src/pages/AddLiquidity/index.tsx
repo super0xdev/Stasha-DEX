@@ -119,7 +119,7 @@ export default function AddLiquidity({
   async function onAdd() {
     if (!chainId || !library || !account) return
     const router = getRouterContract(chainId, library, account)
-
+    console.log(router);
     const { [Field.CURRENCY_A]: parsedAmountA, [Field.CURRENCY_B]: parsedAmountB } = parsedAmounts
     if (!parsedAmountA || !parsedAmountB || !currencyA || !currencyB) {
       return
@@ -138,8 +138,10 @@ export default function AddLiquidity({
     let value: BigNumber | null
     if (currencyA === ETHER || currencyB === ETHER) {
       const tokenBIsETH = currencyB === ETHER
+      console.log('ether, --------------------------')
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
+      console.log("============>ether=======>", method);
       args = [
         wrappedCurrency(tokenBIsETH ? currencyA : currencyB, chainId)?.address ?? '', // token
         (tokenBIsETH ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
@@ -151,7 +153,8 @@ export default function AddLiquidity({
       value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString())
     } else {
       estimate = router.estimateGas.addLiquidity
-      method = router.addLiquidity
+      method = router.addLiquidity;
+      console.log("============>not ether=======>", estimate(), "=========>", estimate);
       args = [
         wrappedCurrency(currencyA, chainId)?.address ?? '',
         wrappedCurrency(currencyB, chainId)?.address ?? '',
@@ -162,11 +165,11 @@ export default function AddLiquidity({
         account,
         deadlineFromNow,
       ]
+      console.log(args)
       value = null
     }
-
+    console.log(estimate)
     setAttemptingTxn(true)
-    // const aa = await estimate(...args, value ? { value } : {})
     await estimate(...args, value ? { value } : {})
       .then((estimatedGasLimit) =>
         method(...args, {
@@ -185,6 +188,7 @@ export default function AddLiquidity({
       )
       .catch((e) => {
         setAttemptingTxn(false)
+        console.log(estimate);
         // we only care if the error is something _other_ than the user rejected the tx
         if (e?.code !== 4001) {
           console.error(e)

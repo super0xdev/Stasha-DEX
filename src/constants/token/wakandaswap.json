@@ -14,6 +14,22 @@
   ],
   "tokens": [
     {
+      "name": "TestToken A",
+      "symbol": "TTA",
+      "address": "0xFc81411a25974B885246089b23E4C71A25D291DA",
+      "chainId": 97,
+      "decimals": 0,
+      "logoURI": "/images/coins/bnb.png"
+    },
+    {
+      "name": "TestToken B",
+      "symbol": "TTB",
+      "address": "0x747185a1bEFc1feb544c30FE7cE1f0e13C025cEf",
+      "chainId": 97,
+      "decimals": 0,
+      "logoURI": "/images/coins/bnb.png"
+    },
+    {
       "name": "WBNB Token",
       "symbol": "WBNB",
       "address": "0xae13d989dac2f0debff460ac112a837c89baa7cd",

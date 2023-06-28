@@ -1,6 +1,6 @@
 import { ChainId, JSBI, Percent, Token, WETH } from '@wakandaswap-libs/sdk'
 
-export const ROUTER_ADDRESS = '0x832A621ebf4Ab926ed9b3a1C91E6ff13f5a2Df5c'
+export const ROUTER_ADDRESS = '0x52Bc6c785dFf9A7035165261452F6b8f380b3be4'
 
 // a list of tokens by chain
 type ChainTokenList = {

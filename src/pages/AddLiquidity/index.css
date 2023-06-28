@@ -1,3 +1,5 @@
 .add {
     background-color: black !important;
+    z-index: 10;
+    position: relative;
 }
