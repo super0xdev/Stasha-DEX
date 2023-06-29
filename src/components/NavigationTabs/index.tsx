@@ -14,6 +14,7 @@ const Tabs = styled.div`
   align-items: center;
   border-radius: 3rem;
   justify-content: space-evenly;
+  place-content: start;
 `
 
 const activeClassName = 'ACTIVE'
@@ -132,19 +133,12 @@ export function FindPoolTabs() {
 export function AddRemoveTabs({ adding }: { adding: boolean }) {
   return (
     <Tabs>
-      <RowBetween style={{ padding: '1rem' }}>
-        <HistoryLink to="/liquidity">
-          <StyledArrowLeft />
+      <div style={{ display: 'flex', padding: '1rem', gap: '10px' }}>
+        <HistoryLink to="/liquidity" style={{ color: '#00ACFF' }}>
+          <StyledArrowLeft style={{ color: '#00ACFF' }} />
         </HistoryLink>
-        <ActiveText>{adding ? 'Add' : 'Remove'} Liquidity</ActiveText>
-        <QuestionHelper
-          text={
-            adding
-              ? 'When you add liquidity, you are given pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.'
-              : 'Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.'
-          }
-        />
-      </RowBetween>
+        <ActiveText style={{ fontFamily: 'Fredoka' }}>{adding ? 'Open' : 'Remove'} Liquidity Position</ActiveText>
+      </div>
     </Tabs>
   )
 }

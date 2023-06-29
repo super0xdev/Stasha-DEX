@@ -1,6 +1,6 @@
 .header {
     position: sticky;
-    z-index: 2;
+    z-index: 10;
     top: 0px;
     color: white;
     background-color: #00ACFF;

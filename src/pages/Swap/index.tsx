@@ -41,30 +41,68 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import AppBody from '../AppBody'
 import './index.css'
 import Ellipse1 from './swapEllipse1.svg'
-import Ellipse2 from './swapEllipse2.svg'
-import Ellipse3 from './swapEllipse3.svg'
 import Rect1 from './swap1.svg'
 import Vector from './vector.svg'
 
+const SwapHeader = styled.div`
+display: flex;
+gap:  40px;
+padding-top: 50px;
+margin: 40px;
+background: transparent;
+border-bottom: solid 1px;
+@media(max-width: 424px) {
+  margin: 20px;
+  padding-top: 20px;
+  gap: 20px;
+}
+`
+
 const Heading = styled.p`
-style={{ display: 'flex', padding: '15px', fontFamily: 'Fredoka' }}
 display: flex;
 font-family: Fredoka;
 z-index: 5;
 font-size: 24px;
 color: gray;
 padding-bottom: 20px;
-@media (max-width: 576px) {
+@media (min-width: 425px) and (max-width: 576px) {
   font-size: 20px;
   padding: 5px;
+}
+@media (max-width: 424px) {
+  font-size: 16px;
+  padding-bottom: 5px;
 }
 `
 
 const Panel = styled.div`
+  width: 400px;
   align-self: center;
-  @media (min-width: 1280px) {
+  @media (min-width: 1024px) {
     align-self: start;
   }
+`
+
+const Connected = styled.div`
+position: relative;
+font-size: 16px;
+width: 100%;
+border: solid 1px #00ACFF;
+border-radius: 20px;
+padding-left: 20px;
+padding-right: 20px;
+padding-top: 30px;
+padding-bottom: 30px;
+display: flex;
+flex-direction: column;
+gap: 30px;
+`
+const Item = styled.div`
+z-index: 5;
+color: white;
+width: 100%;
+display: flex;
+justify-content: space-between;
 `
 
 const { main: Main } = TYPE
@@ -117,7 +155,8 @@ const Swap = () => {
 
   // get custom setting values for user
   const [deadline] = useUserDeadline()
-  const [allowedSlippage] = useUserSlippageTolerance()
+  // const [allowedSlippage] = useUserSlippageTolerance()
+  const allowedSlippage = 500;
 
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
@@ -325,12 +364,12 @@ const Swap = () => {
     setPriceB(t);
   }
   return (
-    <div className='swap' style={{ color: 'white', justifyContent: 'space-between', padding: 10, fontSize: '28px' }}>
-      <div style={{ display: 'flex', gap: '40px', paddingTop: '50px', margin: '40px', background: 'transparent', borderBottom: 'solid 1px' }}>
+    <div className='swap' style={{ color: 'white', justifyContent: 'space-between', fontSize: '28px' }}>
+      <SwapHeader>
         <Heading style={{ color: 'white', fontWeight: 700, borderBottom: 'solid 2px white' }}>Swap</Heading>
         <Heading>Pairs&Token</Heading>
         <Heading>Hartson</Heading>
-      </div>
+      </SwapHeader>
       <TokenWarningModal
         isOpen={urlLoadedTokens.length > 0 && !dismissTokenWarning && !tokenWhitelisted}
         tokens={urlLoadedTokens}
@@ -345,7 +384,6 @@ const Swap = () => {
       <div style={{ position: 'absolute', width: '1920px', top: '80px', left: '-10px', zIndex: 1 }}>
         <img src={Rect1} alt="rect" style={{ position: 'absolute', width: '1920px', transform: '50% 50% 0 0', zIndex: 1 }} />
         <img src={Ellipse1} alt='ellipse' style={{ width: '20%', top: '-70px', position: 'absolute', left: '0px', zIndex: 3 }} />
-        <img src={Ellipse2} alt='ellipse' style={{ width: '20%', position: 'absolute', right: '300px', top: '50px', borderRadius: '50%' }} />
       </div>
       <AppBody>
         <Wrapper id="swap-page" style={{ display: 'flex', placeContent: 'center', alignItems: 'center' }}>
@@ -363,7 +401,7 @@ const Swap = () => {
             onDismiss={handleConfirmDismiss}
           />
           {/* <PageHeader title="Exchange" description="Trade tokens in an instant" /> */}
-          <CardBody style={{ position: 'relative', padding: '0px', marginRight: '10px', width: '100%', minWidth: '100px', maxWidth: '670px' }}>
+          <CardBody style={{ position: 'relative', padding: '20px', marginRight: '10px', width: '100%', minWidth: '100px', maxWidth: '600px' }}>
             <AutoColumn gap="sm">
               <CurrencyInputPanel
                 label={
@@ -380,7 +418,7 @@ const Swap = () => {
                 otherCurrency={currencies[Field.OUTPUT]}
                 id="swap-currency-input"
               />
-              <AutoColumn justify="space-between" style={{ position: 'absolute', zIndex: 50, left: 120, top: account ? 150 : 120 }}>
+              <AutoColumn justify="space-between" style={{ position: 'absolute', zIndex: 50, left: 120, top: account ? 170 : 140 }}>
                 <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
                   <ArrowWrapper clickable>
                     <IconButton
@@ -456,7 +494,7 @@ const Swap = () => {
             </AutoColumn>
             <BottomGrouping>
               {!account ? (
-                <ConnectWalletButton fullWidth />
+                <ConnectWalletButton title="Connect Stasha Wallet" />
               ) : showWrap ? (
                 <Button disabled={Boolean(wrapInputError)} onClick={onWrap} fullWidth>
                   {wrapInputError ??
@@ -542,7 +580,7 @@ const Swap = () => {
             </BottomGrouping>
             <AdvancedSwapDetailsDropdown trade={trade} />
           </CardBody>
-          <Panel style={{ height: '100%' }}>
+          {!account ? <Panel style={{ height: '100%' }}>
             <div style={{ position: 'relative', zIndex: 2, display: 'flex', height: 290, flexDirection: 'column', gap: 10, padding: '20px', paddingTop: '40px', borderRadius: '20px', maxWidth: '325px', marginBottom: '60px', background: 'linear-gradient(180deg, #005E8B 0%, #00ACFF 100%)' }}>
               <img alt='img' src={Vector} style={{ position: 'absolute', zIndex: -1, height: '250px', left: '5px' }} />
               <div>New to <br /><span style={{ color: '#00ACFFE5' }}>Stasha</span> DEX ?</div>
@@ -554,7 +592,39 @@ const Swap = () => {
                   <FaTelegramPlane />Join Telegram</div>
               </div>
             </div>
-          </Panel>
+          </Panel> : <Panel style={{ height: '100%' }}>
+            <Connected>
+              <Item>
+                <div>Possible Slippage</div>
+                <div>{allowedSlippage / 100}%</div>
+              </Item>
+              <Item>
+                <div>Avg. Transaction Cost</div>
+                <div>0.13174987 STC</div>
+              </Item>
+              <Item>
+                <div>Refundable Fee</div>
+                <div>6 STC</div>
+              </Item>
+              <Item>
+                <div>Price Impact</div>
+                <div>{'<'}0.00162%</div>
+              </Item>
+              <Item>
+                <div>Route</div>
+                <div>STC {'>'} USDT</div>
+              </Item>
+              <Item>
+                <div>Exchange Rate</div>
+                <div>6000 STC = 365 USDT</div>
+              </Item>
+              <div style={{ display: 'flex', gap: 5, flexDirection: 'column', color: 'white', zIndex: 5 }}>
+                <div style={{ borderTop: 'solid 1px #00ACFF', paddingTop: '10px' }}>Minimum to Receive</div>
+                <div style={{ fontSize: '24px' }}>340.84689 USDT</div>
+              </div>
+            </Connected>
+          </Panel>}
+
         </Wrapper>
       </AppBody>
     </div>

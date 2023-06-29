@@ -16,6 +16,7 @@ const NavbarWrapper = styled.div`
   padding-top: 20px;
   padding-bottom: 0px;
   width: 100%;
+  z-index: 6;
   justify-content: space-between;
   @media (max-width: 768px) {
     flex-wrap: wrap;
@@ -115,7 +116,7 @@ const Navbar = () => {
         <NavbarConnectButton />
       </NavbarWrapper>
 
-      <div aria-hidden style={{ display: vis ? "block" : "none", width: '100%' }}>
+      <div aria-hidden style={{ display: vis ? "block" : "none", width: '100%', zIndex: 5 }}>
         <Accordion />
       </div>
     </>

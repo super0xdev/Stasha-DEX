@@ -15,6 +15,7 @@ gap: 80px;
 width: 100%;
 z-index: 5;
 align-items:start;
+padding-bottom: 30px;
 @media (max-width: 1024px) {
     flex-direction: column;
     align-items:center;
@@ -57,15 +58,43 @@ top: -250px;
     display: none;
 }
 `
+
+
+
+const BlurCircleLeft = styled.div`
+width: 400px;
+height: 400px;
+position: absolute;
+z-index: -1;
+right: -100px;
+top: -300px;
+background: #00ACFF40;
+filter: blur(60px);
+border-radius: 50%;
+`
+
+
+const BlurCircle = styled.div`
+width: 400px;
+height: 400px;
+position: absolute;
+z-index: -1;
+left: -20px;
+background: #5061FF40;
+filter: blur(120px);
+border-radius: 50%;
+`
+
 const Footer = () => {
 
     return (
         <Body>
-            <Img src={Ellipse} alt='alt' />
+            <BlurCircleLeft />
             <div style={{ display: 'flex', paddingLeft: '30px' }}>
                 <img src='./img/logo.png' alt='logo' />
                 <span style={{ fontSize: '40px', fontFamily: 'Fredoka', alignSelf: 'center' }}>Stasha</span>
             </div>
+            <BlurCircle />
             <Grid>
                 <div style={{ display: 'flex', gap: '15px', flexDirection: 'column' }}>
                     <Span>Pages</Span>

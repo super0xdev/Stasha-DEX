@@ -38,6 +38,10 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   :hover {
     background-color: #005E8B;
   }
+
+  @media (max-width: 425px) {
+    width: 100px;
+  }
 `
 
 const LabelRow = styled.div`
@@ -143,7 +147,7 @@ export default function CurrencyInputPanel({
               {pair ? (
                 <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
               ) : currency ? (
-                <CurrencyLogo currency={currency} size="49px" style={{ marginRight: '8px' }} />
+                <CurrencyLogo currency={currency} style={{ marginRight: '8px' }} />
               ) : null}
               {pair ? (
                 <Text>

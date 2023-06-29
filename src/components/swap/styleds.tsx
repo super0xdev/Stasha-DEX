@@ -8,7 +8,7 @@ import { AutoColumn } from '../Column'
 export const Wrapper = styled.div`
   position: relative;
   flex-direction: column;
-  @media (min-width: 1280px) {
+  @media (min-width: 1024px) {
     flex-direction: row;
   }
 `

@@ -29,7 +29,7 @@ const UnlockButton: React.FC<ButtonProps> = props => {
             <Button style={{ zIndex: 20, gap: '10px', position: 'relative', background: 'transparent' }} onClick={onPresentConnectModal} {...props}>
                 {TranslateString(292, 'Connect Wallet')}
                 <BiRightArrowAlt style={{ fontSize: '30px', padding: '5px', background: '#00ACFF', borderRadius: '12px' }} />
-            </Button> : <p style={{ width: '200px', lineBreak: 'anywhere' }}>{account}</p>
+            </Button> : <p style={{ width: '200px', padding: '10px' }}>{account.slice(0, 4)}...{account.slice(account.length - 4, account.length)}</p>
 
     )
 }

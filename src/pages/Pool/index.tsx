@@ -10,6 +10,7 @@ import { StyledInternalLink, TYPE } from 'components/Shared'
 import { LightCard } from 'components/Card'
 import { RowBetween } from 'components/Row'
 import { AutoColumn } from 'components/Column'
+import ConnectWalletButton from 'components/ConnectWalletButton'
 
 import { useActiveWeb3React } from 'hooks'
 import { usePairs } from 'data/Reserves'
@@ -20,13 +21,57 @@ import { TranslateString } from 'utils/translateTextHelpers'
 import PageHeader from 'components/PageHeader'
 import AppBody from '../AppBody'
 import './index.css'
+import Coin from './pool.svg'
+import Ellipse1 from './swapEllipse1.svg'
+import Rect1 from './swap1.svg'
 
 const { body: Body } = TYPE
 
 const PoolHeading = styled.div`
 display: flex;
 padding: 40px;
+gap: 20px;
 justify-content: space-between;
+@media (max-width: 630px) {
+  flex-direction: column;
+}
+position: relative;
+z-index: 5;
+`
+const PoolHRight = styled.div`
+display: flex;
+align-self: center;
+align-items: center;
+text-align: center;
+gap: 20px;
+@media (max-width: 630px) {
+}
+`
+
+const Details = styled.div`
+margin-left: 30px;
+margin-right: 30px;
+padding-left: 30px;
+padding-top: 30px;
+display: flex;
+background: #00ACFF40;
+border-radius: 20px;
+@media (max-width: 630px) {
+  flex-direction: column;
+}
+`
+
+
+const BlurCircle = styled.div`
+width: 200px;
+height: 200px;
+position: absolute;
+z-index: 5;
+left: 0px;
+top: 50px;
+background: #5061FF40;
+filter: blur(60px);
+border-radius: 50%;
 `
 
 export default function Pool() {
@@ -65,35 +110,36 @@ export default function Pool() {
   return (
     <div className='pool'>
       {/* <CardNav activeIndex={1} /> */}
+      <div style={{ position: 'absolute', width: '1920px', top: '80px', left: '-10px', zIndex: 1 }}>
+        <img src={Ellipse1} alt='ellipse' style={{ width: '20%', top: '-70px', position: 'absolute', left: '0px', zIndex: 3 }} />
+      </div>
       <AppBody>
         <PoolHeading>
-          <p style={{ fontFamily: 'Fredoka', fontSize: '28px' }}>My Liquidity Pools</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <p style={{ fontFamily: 'Fredoka', fontSize: '28px', alignSelf: 'center' }}>My Liquidity Pools</p>
+          <PoolHRight>
             <p style={{ color: '#00ACFF', fontFamily: 'Fredoka' }}>Refresh Pools</p>
-            <Button id="join-pool-button" as={Link} to="/add/ETH">
+            <Button style={{ background: '#00ACFF', borderRadius: '10px' }} id="join-pool-button" as={Link} to="/add/ETH">
               <TranslatedText translationId={100}>Add Liquidity</TranslatedText>
             </Button>
-          </div>
+          </PoolHRight>
         </PoolHeading>
+        <Details>
+          <div style={{ paddingRight: '10px' }}>
+            <div style={{ fontFamily: 'Fredoka', fontSize: '28px' }}>Provide Liquidity and earn!</div>
+            <div style={{ fontFamily: 'Roboto', fontSize: '16px', color: '#cccccc', paddingTop: '10px' }}>Our liquidity pools provide a seamless way for you to provide liquidity and earn fees from every token swap.Choose your preferred pool, add your assets, and watch as each transaction generates income.Join and start earning rewards today.</div>
+          </div>
+          <img src={Coin} alt='alt' width="200px" />
+        </Details>
         <AutoColumn gap="lg" justify="center">
-          <CardBody>
+          <CardBody style={{ width: '100%', padding: '32px' }}>
             <AutoColumn gap="12px" style={{ width: '100%' }}>
-              <RowBetween padding="0 8px">
-                <Text color={theme.colors.text}>
-                  <TranslatedText translationId={102}>Your Liquidity</TranslatedText>
-                </Text>
-                <Question
-                  text={TranslateString(
-                    130,
-                    'When you add liquidity, you are given pool tokens that represent your share. If you don’t see a pool you joined in this list, try importing a pool below.'
-                  )}
-                />
-              </RowBetween>
-
               {!account ? (
-                <LightCard padding="40px">
-                  <Body color={theme.colors.textDisabled} textAlign="center">
-                    Connect to a wallet to view your liquidity.
+                <LightCard padding="40px" style={{ zIndex: '10' }}>
+                  <Body color='white' style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '20px', paddingBottom: '20px' }}>Your wallet is not connected</div>
+                    <div>Please connect your wallet</div>
+                    <div style={{ paddingBottom: '20px' }}>Learn how to install and create Stasha Wallet</div>
+                    <ConnectWalletButton title="Connect Wallet" />
                   </Body>
                 </LightCard>
               ) : v2IsLoading ? (
@@ -116,16 +162,11 @@ export default function Pool() {
                 </LightCard>
               )}
 
-              <div>
+              <div style={{ marginBottom: '100px' }}>
                 <Text fontSize="14px" style={{ padding: '.5rem 0 .5rem 0' }}>
-                  {TranslateString(106, "Don't see a pool you joined?")}{' '}
-                  <StyledInternalLink id="import-pool-link" to="/find">
-                    {TranslateString(108, 'Import it.')}
-                  </StyledInternalLink>
+                  {TranslateString(106, "Pools")}{' '}
                 </Text>
-                <Text fontSize="14px" style={{ padding: '.5rem 0 .5rem 0' }}>
-                  Or, if you staked your STASHA-LP tokens in a farm, unstake them to see them here.
-                </Text>
+                <input placeholder="Search coin name" style={{ color: 'white', outline: 'none', border: 'none', background: '#005E8B40', width: '100%', padding: '12px', borderRadius: '15px' }} />
               </div>
             </AutoColumn>
           </CardBody>

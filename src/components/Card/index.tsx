@@ -13,8 +13,7 @@ const Card = styled.div<any>`
 export default Card
 
 export const LightCard = styled(Card)`
-  border: 1px solid ${({ theme }) => theme.colors.invertedContrast};
-  background-color: ${({ theme }) => theme.colors.invertedContrast};
+  background: #B2D8EB20;
 `
 
 export const GreyCard = styled(Card)`

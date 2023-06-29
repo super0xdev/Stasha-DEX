@@ -2,7 +2,12 @@ import { Text } from '@wakandaswap-libs/uikit'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  position: relative;
+position: relative;
+flex-direction: column;
+gap: 20px;
+@media (min-width: 1024px) {
+  flex-direction: row;
+}
 `
 
 export const ClickableText = styled(Text)`

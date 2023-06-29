@@ -12,6 +12,9 @@ import DoubleCurrencyLogo from 'components/DoubleLogo'
 import { AddRemoveTabs } from 'components/NavigationTabs'
 import { MinimalPositionCard } from 'components/PositionCard'
 import Row, { RowBetween, RowFlat } from 'components/Row'
+import { FaTelegramPlane } from 'react-icons/fa'
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import styled from 'styled-components'
 
 import { PairState } from 'data/Reserves'
 import { useActiveWeb3React } from 'hooks'
@@ -34,9 +37,42 @@ import { Dots, Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { PoolPriceBar } from './PoolPriceBar'
 import { ROUTER_ADDRESS } from '../../constants'
+import Vector from './vector.svg'
 import './index.css'
+import Rect1 from './swap1.svg'
+import Ellipse1 from './swapEllipse1.svg'
 
 const { italic: Italic } = TYPE
+
+const Panel = styled.div`
+  width: 400px;
+  align-self: center;
+  @media (min-width: 1024px) {
+    align-self: start;
+  }
+`
+
+const Connected = styled.div`
+position: relative;
+font-size: 16px;
+width: 100%;
+border: solid 1px #00ACFF;
+border-radius: 20px;
+padding-left: 20px;
+padding-right: 20px;
+padding-top: 30px;
+padding-bottom: 30px;
+display: flex;
+flex-direction: column;
+gap: 30px;
+`
+const Item = styled.div`
+z-index: 5;
+color: white;
+width: 100%;
+display: flex;
+justify-content: space-between;
+`
 
 export default function AddLiquidity({
   match: {
@@ -290,11 +326,16 @@ export default function AddLiquidity({
   }, [onFieldAInput, txHash])
 
   return (
-    <div className='add'>
+    <div className='add' style={{ padding: '100px 70px' }}>
       {/* <CardNav activeIndex={1} /> */}
+      <div style={{ position: 'absolute', width: '1920px', top: '80px', left: '-10px', zIndex: 0 }}>
+        <img src={Rect1} alt="rect" style={{ position: 'absolute', width: '1920px', transform: '50% 50% 0 0', zIndex: 1 }} />
+        <img src={Ellipse1} alt='ellipse' style={{ width: '20%', top: '-70px', position: 'absolute', left: '0px', zIndex: 3 }} />
+      </div>
       <AppBody>
+        <div>Liquidity Pool</div>
         <AddRemoveTabs adding />
-        <Wrapper>
+        <Wrapper style={{ display: 'flex', placeContent: 'center', alignItems: 'center', zIndex: 2 }}>
           <TransactionConfirmationModal
             isOpen={showConfirm}
             onDismiss={handleDismissConfirmation}
@@ -310,7 +351,7 @@ export default function AddLiquidity({
             )}
             pendingText={pendingText}
           />
-          <CardBody>
+          <CardBody style={{ position: 'relative', padding: '0px', marginRight: '10px', width: '100%', minWidth: '100px', maxWidth: '600px' }}>
             <AutoColumn gap="5px">
               {noLiquidity && (
                 <ColumnCenter>
@@ -372,7 +413,7 @@ export default function AddLiquidity({
               )}
               <br />
               {!account ? (
-                <ConnectWalletButton fullWidth />
+                <ConnectWalletButton title="Connect Stasha Wallet" />
               ) : (
                 <AutoColumn gap="md">
                   {(approvalA === ApprovalState.NOT_APPROVED ||
@@ -431,6 +472,50 @@ export default function AddLiquidity({
               )}
             </AutoColumn>
           </CardBody>
+          {!account ? <Panel style={{ height: '100%' }}>
+            <div style={{ position: 'relative', zIndex: 2, display: 'flex', height: 290, flexDirection: 'column', gap: 10, padding: '20px', paddingTop: '40px', borderRadius: '20px', maxWidth: '325px', marginBottom: '60px', background: 'linear-gradient(180deg, #005E8B 0%, #00ACFF 100%)' }}>
+              <img alt='img' src={Vector} style={{ position: 'absolute', zIndex: -1, height: '250px', left: '5px' }} />
+              <div>New to <br /><span style={{ color: '#00ACFFE5' }}>Stasha</span> DEX ?</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 15, fontSize: '15px' }}>
+                <div>Just 2 steps to get the best out of Stasha DEX</div>
+                <div style={{ display: 'flex', gap: '10px' }}><span>Connect Stasha Wallet</span><MdOutlineKeyboardArrowRight /></div>
+                <div style={{ display: 'flex', gap: '10px' }}><span>Get Stasha Wallet</span><MdOutlineKeyboardArrowRight /></div>
+                <div style={{ display: 'flex', background: '#006B9E', width: '140px', padding: '10px', borderRadius: '10px' }}>
+                  <FaTelegramPlane />Join Telegram</div>
+              </div>
+            </div>
+          </Panel> : <Panel style={{ height: '100%' }}>
+            <Connected>
+              <Item>
+                <div>Possible Slippage</div>
+                <div>{allowedSlippage / 100}%</div>
+              </Item>
+              <Item>
+                <div>Avg. Transaction Cost</div>
+                <div>0.13174987 STC</div>
+              </Item>
+              <Item>
+                <div>Refundable Fee</div>
+                <div>6 STC</div>
+              </Item>
+              <Item>
+                <div>Price Impact</div>
+                <div>{'<'}0.00162%</div>
+              </Item>
+              <Item>
+                <div>Route</div>
+                <div>STC {'>'} USDT</div>
+              </Item>
+              <Item>
+                <div>Exchange Rate</div>
+                <div>6000 STC = 365 USDT</div>
+              </Item>
+              <div style={{ display: 'flex', gap: 5, flexDirection: 'column', color: 'white', zIndex: 5 }}>
+                <div style={{ borderTop: 'solid 1px #00ACFF', paddingTop: '10px' }}>Minimum to Receive</div>
+                <div style={{ fontSize: '24px' }}>340.84689 USDT</div>
+              </div>
+            </Connected>
+          </Panel>}
         </Wrapper>
       </AppBody>
       {pair && !noLiquidity && pairState !== PairState.INVALID ? (

@@ -16,7 +16,7 @@
     {
       "name": "TestToken A",
       "symbol": "TTA",
-      "address": "0xFc81411a25974B885246089b23E4C71A25D291DA",
+      "address": "0x05177712805E14802455A0239053489ACba1B566",
       "chainId": 97,
       "decimals": 0,
       "logoURI": "/images/coins/bnb.png"
@@ -24,18 +24,10 @@
     {
       "name": "TestToken B",
       "symbol": "TTB",
-      "address": "0x747185a1bEFc1feb544c30FE7cE1f0e13C025cEf",
+      "address": "0x5D175b45819e9A0C2076B39214F96514a4F1bEB6",
       "chainId": 97,
       "decimals": 0,
       "logoURI": "/images/coins/bnb.png"
-    },
-    {
-      "name": "WBNB Token",
-      "symbol": "WBNB",
-      "address": "0xae13d989dac2f0debff460ac112a837c89baa7cd",
-      "chainId": 97,
-      "decimals": 18,
-      "logoURI": "/images/coins/BUSD.png"
     },
     {
       "name": "BUSD Token",
@@ -52,14 +44,6 @@
       "chainId": 56,
       "decimals": 18,
       "logoURI": "/images/coins/ETH.png"
-    },
-    {
-      "name": "BSC testnet Token",
-      "symbol": "tBNB",
-      "address": "0xd8cfef3e036ca9c4deb03982f6ba3f18e220ca89",
-      "chainId": 97,
-      "decimals": 18,
-      "logoURI": "/images/coins/BUSD.png"
     },
     {
       "name": "BTCB Token",
